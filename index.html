@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LabTessa — LIMS for testing labs</title>
+<meta name="description" content="LabTessa is an affordable LIMS for testing laboratories, with AI-assisted request intake that only saves what your staff confirm.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230f766e'/%3E%3Cpath d='M11 7h10v3h-2v5.5l6 9.5a2 2 0 0 1-1.7 3H8.7A2 2 0 0 1 7 25l6-9.5V10h-2z' fill='white'/%3E%3C/svg%3E">
+<style>
+  :root {
+    --bg: #f7f8f7; --surface: #ffffff; --text: #16201e; --muted: #56625f;
+    --line: #dfe4e2; --accent: #0f766e; --accent-soft: #e3f2ef; --accent-text: #ffffff;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0f1413; --surface: #171e1c; --text: #e8eeec; --muted: #9aa8a4;
+      --line: #2a3431; --accent: #2bb3a3; --accent-soft: #15302c; --accent-text: #06201c;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font: 16px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 16px; }
+  header { padding: 20px 0; }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 20px; letter-spacing: -0.01em; }
+  .brand svg { width: 30px; height: 30px; }
+  .hero { padding: 56px 0 40px; }
+  .hero h1 { font-size: clamp(30px, 5vw, 48px); line-height: 1.15; letter-spacing: -0.02em; margin: 0 0 16px; max-width: 760px; }
+  .hero p { font-size: 18px; color: var(--muted); max-width: 640px; margin: 0 0 28px; }
+  .btn {
+    display: inline-block; background: var(--accent); color: var(--accent-text); text-decoration: none;
+    padding: 12px 20px; border-radius: 8px; font-weight: 600;
+  }
+  .tag { display: inline-block; background: var(--accent-soft); color: var(--accent); font-size: 13px; font-weight: 600;
+         padding: 4px 10px; border-radius: 999px; margin-bottom: 18px; }
+  section { padding: 36px 0; border-top: 1px solid var(--line); }
+  h2 { font-size: 24px; letter-spacing: -0.01em; margin: 0 0 20px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+  .card { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 20px; }
+  .card h3 { font-size: 17px; margin: 0 0 6px; }
+  .card p { margin: 0; color: var(--muted); font-size: 15px; }
+  ul.industries { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 10px; }
+  ul.industries li { background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 6px 14px; font-size: 15px; }
+  .contact p { color: var(--muted); max-width: 640px; }
+  footer { padding: 28px 0 40px; color: var(--muted); font-size: 14px; border-top: 1px solid var(--line); }
+</style>
+</head>
+<body>
+  <header class="wrap">
+    <div class="brand">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="7" fill="#0f766e"/><path d="M11 7h10v3h-2v5.5l6 9.5a2 2 0 0 1-1.7 3H8.7A2 2 0 0 1 7 25l6-9.5V10h-2z" fill="#fff"/></svg>
+      LabTessa
+    </div>
+  </header>
+
+  <main>
+    <div class="wrap hero">
+      <span class="tag">Now inviting pilot labs</span>
+      <h1>A LIMS for testing labs that reads requests for you, and saves only what you confirm.</h1>
+      <p>LabTessa takes a lab from sample receipt to an issued test report: registration, results, second-person approval and PDF reports. It is priced for small and mid-sized labs.</p>
+      <a class="btn" href="mailto:hello@labtessa.com?subject=LabTessa%20pilot">Talk to us about a pilot</a>
+    </div>
+
+    <section>
+      <div class="wrap">
+        <h2>What it does</h2>
+        <div class="grid">
+          <div class="card">
+            <h3>AI-assisted request intake</h3>
+            <p>Paste an email or upload a PDF. LabTessa drafts the request (client, matrix, samples, tests) and shows the exact text each field came from. Nothing is saved until your staff confirm it.</p>
+          </div>
+          <div class="card">
+            <h3>Your catalogue, your scope</h3>
+            <p>Tests can only come from your own catalogue. A test outside your accreditation scope for that matrix is flagged; it is never added silently.</p>
+          </div>
+          <div class="card">
+            <h3>Results with four-eyes approval</h3>
+            <p>Results are checked against the limits you enter, with their source. The person who approves a result must be different from the one who entered it.</p>
+          </div>
+          <div class="card">
+            <h3>Honest test reports</h3>
+            <p>PDF reports show the accreditation mark only for tests within scope. Corrections are issued as revised reports; the original is never changed.</p>
+          </div>
+          <div class="card">
+            <h3>Tamper-evident audit trail</h3>
+            <p>Every change is recorded in a hash-chained audit trail. Results and reports are write-once.</p>
+          </div>
+          <div class="card">
+            <h3>Built for data protection</h3>
+            <p>Each lab's data is isolated at the database level. Admins sign in with two-step verification. Contact details are masked before any text is sent to the AI.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <h2>Who it is for</h2>
+        <ul class="industries">
+          <li>Food testing labs</li>
+          <li>Agri inputs and residue labs</li>
+          <li>AYUSH, herbal and nutraceutical QC</li>
+          <li>Water and environmental labs</li>
+          <li>Construction materials testing</li>
+          <li>In-house QC labs</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="contact">
+      <div class="wrap">
+        <h2>Run a pilot with us</h2>
+        <p>We are looking for a small number of labs to use LabTessa in daily work and shape what comes next. Write to us and tell us what your lab tests.</p>
+        <a class="btn" href="mailto:hello@labtessa.com?subject=LabTessa%20pilot">hello@labtessa.com</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">© 2026 LabTessa</div>
+  </footer>
+</body>
+</html>
