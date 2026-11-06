@@ -8,29 +8,29 @@
 <meta property="og:title" content="LabTessa — LIMS for testing labs">
 <meta property="og:description" content="From sample receipt to signed test report. AI-assisted intake, four-eyes approval, honest accreditation marks.">
 <meta property="og:url" content="https://labtessa.com/">
-<meta name="theme-color" content="#0f766e">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230f766e'/%3E%3Cpath d='M11 7h10v3h-2v5.5l6 9.5a2 2 0 0 1-1.7 3H8.7A2 2 0 0 1 7 25l6-9.5V10h-2z' fill='white'/%3E%3C/svg%3E">
+<meta name="theme-color" content="#1d4ed8">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231d4ed8'/%3E%3Cpath d='M11 7h10v3h-2v5.5l6 9.5a2 2 0 0 1-1.7 3H8.7A2 2 0 0 1 7 25l6-9.5V10h-2z' fill='white'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #f6f8f7; --surface: #ffffff; --surface-2: #eef3f1; --text: #0f1a18; --muted: #55625f;
-    --line: #dce3e0; --accent: #0f766e; --accent-2: #14b8a6; --accent-soft: #dff3ef; --on-accent: #ffffff;
+    --bg: #f6f8fb; --surface: #ffffff; --surface-2: #eef2f8; --text: #0b1324; --muted: #526077;
+    --line: #dbe2ec; --accent: #1d4ed8; --accent-2: #06b6d4; --accent-soft: #e0ecff; --on-accent: #ffffff;
     --hl: #fde68a; --hl-text: #3b2f00; --warn: #b45309; --warn-soft: #fef3c7; --ok: #15803d; --ok-soft: #dcfce7;
-    --shadow: 0 1px 2px rgba(15,26,24,.06), 0 12px 32px rgba(15,26,24,.08);
+    --shadow: 0 1px 2px rgba(11,19,36,.06), 0 12px 32px rgba(11,19,36,.08);
   }
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
-      --bg: #0b1110; --surface: #121a18; --surface-2: #17211f; --text: #e7efec; --muted: #98a8a3;
-      --line: #25312e; --accent: #2dd4bf; --accent-2: #5eead4; --accent-soft: #10302b; --on-accent: #04201b;
+      --bg: #0a0f1a; --surface: #111827; --surface-2: #162033; --text: #e6edf7; --muted: #94a3b8;
+      --line: #243047; --accent: #60a5fa; --accent-2: #22d3ee; --accent-soft: #102a4c; --on-accent: #04122b;
       --hl: #7c5e10; --hl-text: #fff4cf; --warn: #fbbf24; --warn-soft: #3a2a08; --ok: #4ade80; --ok-soft: #0f2e1b;
       --shadow: 0 1px 2px rgba(0,0,0,.4), 0 12px 32px rgba(0,0,0,.35);
     }
   }
   :root[data-theme="dark"] {
-    --bg: #0b1110; --surface: #121a18; --surface-2: #17211f; --text: #e7efec; --muted: #98a8a3;
-    --line: #25312e; --accent: #2dd4bf; --accent-2: #5eead4; --accent-soft: #10302b; --on-accent: #04201b;
+    --bg: #0a0f1a; --surface: #111827; --surface-2: #162033; --text: #e6edf7; --muted: #94a3b8;
+    --line: #243047; --accent: #60a5fa; --accent-2: #22d3ee; --accent-soft: #102a4c; --on-accent: #04122b;
     --hl: #7c5e10; --hl-text: #fff4cf; --warn: #fbbf24; --warn-soft: #3a2a08; --ok: #4ade80; --ok-soft: #0f2e1b;
     --shadow: 0 1px 2px rgba(0,0,0,.4), 0 12px 32px rgba(0,0,0,.35);
   }
@@ -175,10 +175,10 @@
 
   /* cta */
   .cta { border-radius: 20px; padding: 48px 32px; text-align: center; color: #fff;
-         background: radial-gradient(500px 200px at 20% 0%, rgba(255,255,255,.18), transparent 70%), linear-gradient(135deg, #0f766e, #0d9488 60%, #14b8a6); }
+         background: radial-gradient(500px 200px at 20% 0%, rgba(255,255,255,.18), transparent 70%), linear-gradient(135deg, #1e3a8a, #1d4ed8 55%, #06b6d4); }
   .cta h2 { color: #fff; }
   .cta p { color: rgba(255,255,255,.88); max-width: 560px; margin: 0 auto 26px; font-size: 17px; }
-  .cta .btn { background: #fff; color: #0f766e; }
+  .cta .btn { background: #fff; color: #1d4ed8; }
   footer { padding: 32px 0 44px; color: var(--muted); font-size: 14px; }
   footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
 
@@ -243,7 +243,7 @@
   <nav>
     <div class="wrap">
       <a class="brand" href="#top">
-        <svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="7" fill="#0f766e"/><path d="M11 7h10v3h-2v5.5l6 9.5a2 2 0 0 1-1.7 3H8.7A2 2 0 0 1 7 25l6-9.5V10h-2z" fill="#fff"/></svg>
+        <svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="7" fill="#1d4ed8"/><path d="M11 7h10v3h-2v5.5l6 9.5a2 2 0 0 1-1.7 3H8.7A2 2 0 0 1 7 25l6-9.5V10h-2z" fill="#fff"/></svg>
         LabTessa
       </a>
       <div class="links">
@@ -619,14 +619,14 @@
   const LOOK = new THREE.Vector3(0, -0.45, 0);
   camera.lookAt(LOOK);
 
-  scene.add(new THREE.HemisphereLight(0xffffff, 0x335555, 1.1));
+  scene.add(new THREE.HemisphereLight(0xffffff, 0x334466, 1.1));
   const key = new THREE.DirectionalLight(0xffffff, 1.6); key.position.set(4, 6, 5); scene.add(key);
-  const rim = new THREE.DirectionalLight(0x5eead4, 1.2); rim.position.set(-5, 2, -4); scene.add(rim);
+  const rim = new THREE.DirectionalLight(0x67e8f9, 1.2); rim.position.set(-5, 2, -4); scene.add(rim);
 
   const world = new THREE.Group(); scene.add(world);
 
   // Rack
-  const rackMat = new THREE.MeshStandardMaterial({ color: 0x0f766e, roughness: 0.45, metalness: 0.1 });
+  const rackMat = new THREE.MeshStandardMaterial({ color: 0x1e3a8a, roughness: 0.45, metalness: 0.1 });
   const top = new THREE.Mesh(new THREE.BoxGeometry(6.2, 0.18, 1.2), rackMat); top.position.y = -0.35; world.add(top);
   const base = new THREE.Mesh(new THREE.BoxGeometry(6.2, 0.14, 1.2), rackMat); base.position.y = -2.15; world.add(base);
   [-3.0, 3.0].forEach(x => { const leg = new THREE.Mesh(new THREE.BoxGeometry(0.14, 1.95, 1.0), rackMat); leg.position.set(x, -1.25, 0); world.add(leg); });
@@ -664,7 +664,7 @@
     const liquid = new THREE.Mesh(new THREE.LatheGeometry(lp, 40), liquidMat); g.add(liquid);
     const surface = new THREE.Mesh(new THREE.CircleGeometry(R * 0.9, 40), liquidMat); surface.rotation.x = -Math.PI / 2; surface.position.y = lh; g.add(surface);
     // Cap colour band = label
-    const cap = new THREE.Mesh(new THREE.CylinderGeometry(R * 1.05, R * 1.05, 0.28, 32), new THREE.MeshStandardMaterial({ color: 0x14b8a6, roughness: 0.4 }));
+    const cap = new THREE.Mesh(new THREE.CylinderGeometry(R * 1.05, R * 1.05, 0.28, 32), new THREE.MeshStandardMaterial({ color: 0x06b6d4, roughness: 0.4 }));
     cap.position.y = H + 0.12; g.add(cap);
     // Invisible hit box for easy hovering
     const hit = new THREE.Mesh(new THREE.CylinderGeometry(R * 1.4, R * 1.4, H + 0.4, 8), new THREE.MeshBasicMaterial({ visible: false }));
@@ -677,7 +677,7 @@
   const N = 70, P = new Float32Array(N * 3);
   for (let i = 0; i < N; i++) { P[i * 3] = (Math.random() - 0.5) * 11; P[i * 3 + 1] = Math.random() * 5 - 1; P[i * 3 + 2] = (Math.random() - 0.5) * 6 - 1.5; }
   const pGeo = new THREE.BufferGeometry(); pGeo.setAttribute('position', new THREE.BufferAttribute(P, 3));
-  const pMat = new THREE.PointsMaterial({ color: 0x14b8a6, size: 0.06, transparent: true, opacity: 0.8 });
+  const pMat = new THREE.PointsMaterial({ color: 0x06b6d4, size: 0.06, transparent: true, opacity: 0.8 });
   const points = new THREE.Points(pGeo, pMat); world.add(points);
   const seg = [];
   for (let i = 0; i < N; i++) for (let j = i + 1; j < N; j++) {
@@ -685,14 +685,14 @@
     if (dx*dx + dy*dy + dz*dz < 1.6) seg.push(P[i*3], P[i*3+1], P[i*3+2], P[j*3], P[j*3+1], P[j*3+2]);
   }
   const lGeo = new THREE.BufferGeometry(); lGeo.setAttribute('position', new THREE.Float32BufferAttribute(seg, 3));
-  const lMat = new THREE.LineBasicMaterial({ color: 0x14b8a6, transparent: true, opacity: 0.18 });
+  const lMat = new THREE.LineBasicMaterial({ color: 0x06b6d4, transparent: true, opacity: 0.18 });
   world.add(new THREE.LineSegments(lGeo, lMat));
 
   function applyTheme() {
-    const dark = getComputedStyle(document.documentElement).getPropertyValue('--bg').trim().toLowerCase() === '#0b1110';
+    const dark = getComputedStyle(document.documentElement).getPropertyValue('--bg').trim().toLowerCase() === '#0a0f1a';
     glassMat.opacity = dark ? 0.16 : 0.22;
-    pMat.color.set(dark ? 0x5eead4 : 0x0f766e);
-    lMat.color.set(dark ? 0x5eead4 : 0x0f766e);
+    pMat.color.set(dark ? 0x67e8f9 : 0x1d4ed8);
+    lMat.color.set(dark ? 0x67e8f9 : 0x1d4ed8);
     lMat.opacity = dark ? 0.22 : 0.16;
   }
   applyTheme();
