@@ -182,6 +182,54 @@
   footer { padding: 32px 0 44px; color: var(--muted); font-size: 14px; }
   footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
 
+  /* 3D stage */
+  .stage { position: relative; height: 480px; border-radius: 20px; overflow: hidden; cursor: grab;
+           background: radial-gradient(420px 300px at 50% 60%, color-mix(in srgb, var(--accent-2) 16%, transparent), transparent 70%); touch-action: pan-y; }
+  .stage:active { cursor: grabbing; }
+  @media (max-width: 920px) { .stage { height: 360px; } }
+  #scene { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+  .stage-fallback { position: absolute; inset: 0; display: none;
+    background: radial-gradient(circle at 30% 40%, var(--accent-soft), transparent 50%), radial-gradient(circle at 70% 60%, color-mix(in srgb, var(--hl) 50%, transparent), transparent 45%); }
+  .stage.no-webgl .stage-fallback { display: block; }
+  .stage.no-webgl .stage-hint { display: none; }
+  .tip { position: absolute; pointer-events: none; transform: translate(-50%, -120%); background: var(--surface); color: var(--text);
+         border: 1px solid var(--line); box-shadow: var(--shadow); border-radius: 10px; padding: 8px 12px; font-size: 13px; white-space: nowrap;
+         opacity: 0; transition: opacity .15s ease; }
+  .tip.on { opacity: 1; }
+  .tip b { display: block; font-size: 13px; }
+  .tip span { color: var(--muted); font-size: 12px; }
+  .stage-hint { position: absolute; left: 50%; bottom: 14px; transform: translateX(-50%); font-size: 12px; color: var(--muted);
+                background: color-mix(in srgb, var(--surface) 80%, transparent); border: 1px solid var(--line); padding: 4px 10px; border-radius: 999px; white-space: nowrap; }
+
+  /* try-it demo */
+  .try { padding-top: 40px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin: -16px 0 18px; }
+  .chip { font: inherit; font-size: 14px; border: 1px solid var(--line); background: var(--surface); color: var(--text); padding: 7px 14px;
+          border-radius: 999px; cursor: pointer; transition: border-color .15s ease, background .15s ease, transform .15s ease; }
+  .chip:hover { border-color: var(--accent); transform: translateY(-1px); }
+  .chip.active { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); font-weight: 600; }
+  #req { width: 100%; resize: vertical; font: 13.5px/1.6 Inter, sans-serif; color: var(--text); background: var(--bg); border: 1px solid var(--line);
+         border-radius: 10px; padding: 10px 12px; outline: none; transition: border-color .15s ease, box-shadow .15s ease; }
+  #req:focus { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 20%, transparent); }
+  .mail label.meta { display: block; }
+  .masked { font-size: 13px; line-height: 1.7; background: var(--surface-2); border-radius: 10px; padding: 10px 12px; min-height: 60px; white-space: pre-wrap; word-break: break-word; }
+  .masked .mask { background: var(--line); border-radius: 4px; padding: 0 4px; font-family: "JetBrains Mono", monospace; font-size: 11.5px; color: var(--muted); }
+  .try .field { opacity: 1; transform: none; animation: pop .35s ease both; }
+  .try .field.empty { border-style: dashed; color: var(--muted); }
+  @keyframes pop { from { opacity: 0; transform: translateY(6px) scale(.98); } to { opacity: 1; transform: none; } }
+  .try .mock-body { grid-template-columns: 1.1fr 1fr; }
+  @media (max-width: 760px) { .try .mock-body { grid-template-columns: 1fr; } .try .mail { border-right: 0; border-bottom: 1px solid var(--line); } }
+  #confirmBtn { border: 0; }
+  #confirmBtn.done { background: var(--ok); }
+
+  /* tilt + timeline */
+  .tilt { transform-style: preserve-3d; will-change: transform; transition: transform .25s ease, box-shadow .25s ease; }
+  .tilt .ico, .tilt h3 { transform: translateZ(18px); }
+  .steps { position: relative; }
+  .progress { position: absolute; left: 0; right: 0; top: -18px; height: 3px; background: var(--line); border-radius: 3px; overflow: hidden; }
+  .progress i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--accent), var(--accent-2)); transition: width .1s linear; }
+  @media (max-width: 900px) { .progress { display: none; } }
+
   .reveal { opacity: 0; transform: translateY(14px); transition: opacity .6s ease, transform .6s ease; }
   .reveal.in { opacity: 1; transform: none; }
   @media (prefers-reduced-motion: reduce) {
@@ -199,6 +247,7 @@
         LabTessa
       </a>
       <div class="links">
+        <a href="#try">Try it</a>
         <a href="#how">How it works</a>
         <a href="#features">Features</a>
         <a href="#industries">Industries</a>
@@ -219,7 +268,7 @@
           <a class="btn" href="#pilot">Run a pilot
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
           </a>
-          <a class="btn ghost" href="#how">See how it works</a>
+          <a class="btn ghost" href="#try">Try the demo</a>
         </div>
         <div class="trust">
           <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Built for ISO/IEC 17025 workflows</span>
@@ -228,25 +277,45 @@
         </div>
       </div>
 
-      <div class="mock reveal" aria-label="Example: an email turned into a draft request">
+      <div class="stage" id="stage" aria-label="3D view of sample tubes in a rack. Hover a tube to see its sample, click to try it in the demo.">
+        <canvas id="scene"></canvas>
+        <div class="stage-fallback" aria-hidden="true"></div>
+        <div class="tip" id="tip" role="status" aria-live="polite"></div>
+        <div class="stage-hint">Drag to rotate · click a tube to try it</div>
+      </div>
+    </div>
+  </header>
+
+  <section id="try" class="try">
+    <div class="wrap">
+      <div class="eyebrow">Try it</div>
+      <h2>Paste a request. Watch it become a draft.</h2>
+      <p class="sub">This demo runs entirely in your browser with a small example catalogue. Nothing you type is sent anywhere. In LabTessa, AI does this step, against your own catalogue and scope.</p>
+      <div class="chips" role="group" aria-label="Example requests">
+        <button class="chip" data-ex="ghee">🧈 Ghee</button>
+        <button class="chip" data-ex="water">💧 Drinking water</button>
+        <button class="chip" data-ex="cube">🏗️ Concrete cubes</button>
+        <button class="chip" data-ex="herbal">🌿 Ashwagandha</button>
+        <button class="chip" data-ex="rice">🌾 Basmati export</button>
+      </div>
+      <div class="mock">
         <div class="mock-bar"><i></i><i></i><i></i><b>New request · draft</b></div>
         <div class="mock-body">
           <div class="mail">
-            <div class="meta">Subject: Testing for ghee samples</div>
-            Hello, we are sending <mark data-k="0">3 samples of cow ghee</mark> from batch GH-0412. Please do <mark data-k="1">acid value and moisture</mark>, and also <mark data-k="2">check for vanaspati</mark>. We need the report <mark data-k="3">by 14 November</mark>.<br><br>Regards,<br>[name] · [phone]
+            <label class="meta" for="req">Client's message</label>
+            <textarea id="req" spellcheck="false" rows="7"></textarea>
+            <div class="meta" style="margin-top:10px">What the AI would see <span class="badge ok">contacts masked</span></div>
+            <div id="masked" class="masked"></div>
           </div>
-          <div class="draft">
-            <h4>Drafted by AI · not saved</h4>
-            <div class="field" data-k="0"><div class="k">Matrix · samples</div><div class="v">Ghee · 3</div><div class="q">“3 samples of cow ghee”</div></div>
-            <div class="field" data-k="1"><div class="k">Tests</div><div class="v">Acid value <span class="badge ok">In scope</span><br>Moisture <span class="badge ok">In scope</span></div></div>
-            <div class="field" data-k="2"><div class="k">Tests</div><div class="v">Vanaspati (Baudouin) <span class="badge warn">Not in scope</span></div><div class="q">“check for vanaspati”</div></div>
-            <div class="field" data-k="3"><div class="k">Due date</div><div class="v">14 Nov</div><div class="q">“by 14 November”</div></div>
-            <div class="confirm"><span>Contact details masked before AI</span><span class="btn">Review &amp; confirm</span></div>
+          <div class="draft" id="draft" aria-live="polite">
+            <h4>Draft · not saved</h4>
+            <div id="fields"></div>
+            <div class="confirm"><span id="summary">Check each field, then confirm.</span><button class="btn" id="confirmBtn" type="button">Review &amp; confirm</button></div>
           </div>
         </div>
       </div>
     </div>
-  </header>
+  </section>
 
   <section id="how" class="alt">
     <div class="wrap">
@@ -254,6 +323,7 @@
       <h2>From inbox to issued report in four steps</h2>
       <p class="sub">Every step is recorded, and nothing is overwritten. A correction always leaves the original in place, with a reason.</p>
       <div class="steps">
+        <div class="progress" aria-hidden="true"><i id="prog"></i></div>
         <div class="step reveal"><h3>Receive</h3><p>Paste an email, upload a PDF or enter a request by hand. Each sample gets its own ID at registration.</p></div>
         <div class="step reveal"><h3>Draft &amp; check</h3><p>AI proposes client, matrix, samples and tests, each with its source quote. Tests outside your catalogue or scope are flagged.</p></div>
         <div class="step reveal"><h3>Test &amp; approve</h3><p>Analysts enter results, which are compared with your limits as they are entered. A second person approves each result.</p></div>
@@ -401,25 +471,309 @@
     els.forEach(function (e) { io.observe(e); });
   })();
 
-  // Mockup: highlight each quote, then reveal the drafted field
+  var REDUCE = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // ---------- Try-it demo: a small, local, rule-based stand-in for the AI step ----------
+  var EXAMPLES = {
+    ghee: "Hello, we are sending 3 samples of cow ghee from batch GH-0412. Please do acid value and moisture, and also check for vanaspati. We need the report by 14 November.\n\nRegards, Ramesh · ramesh@dairy.example · +91 98765 43210",
+    water: "Dear team, 2 bottles of drinking water from our RO plant for full IS 10500 testing. Please also include arsenic. Urgent, within 5 days.\n\nThanks, Priya (+91 91234 56789)",
+    cube: "Please test 6 concrete cubes, M25 grade, 28 days compressive strength. Site: Phase 2 tower. Need report by 20 November.\n\nSite engineer, contact: site.eng@builder.example",
+    herbal: "We are submitting 1 sample of ashwagandha churna for heavy metals and microbial limits. Also need withanolide content if possible.\n\nQA Dept · qa@herbs.example",
+    rice: "Basmati rice for EU export, 4 samples. Need pesticide residue panel and aflatoxin. Report within 7 days please.\n\nExports desk, 022-4567-8901"
+  };
+  // Example catalogue of one imaginary lab: [test name, in accreditation scope?]
+  var CATALOGUE = [
+    { matrix: 'Ghee', words: ['ghee'], tests: [
+      [/acid value/i, 'Acid value', true], [/moisture/i, 'Moisture', true], [/peroxide/i, 'Peroxide value', true],
+      [/\bffa\b|free fatty/i, 'Free fatty acids', true], [/vanaspati|baudouin/i, 'Vanaspati (Baudouin test)', false],
+      [/\bbr reading|butyro/i, 'BR reading', true] ] },
+    { matrix: 'Drinking water', words: ['drinking water', 'water'], tests: [
+      [/is ?10500/i, 'IS 10500 physico-chemical panel', true], [/arsenic/i, 'Arsenic', false],
+      [/coliform|e\.? ?coli|micro/i, 'Coliforms / E. coli', true], [/\bph\b/i, 'pH', true], [/\btds\b/i, 'Total dissolved solids', true] ] },
+    { matrix: 'Concrete cube', words: ['concrete cube', 'cubes', 'cube'], tests: [
+      [/compressive|cube test|28 days|7 days/i, 'Compressive strength', true], [/density/i, 'Density', true] ] },
+    { matrix: 'Herbal powder (churna)', words: ['ashwagandha', 'churna', 'herbal'], tests: [
+      [/heavy metal/i, 'Heavy metals (Pb, Cd, As, Hg)', true], [/microbial|micro/i, 'Microbial limits', true],
+      [/withanolide/i, 'Withanolide content', false], [/aflatoxin/i, 'Aflatoxins', true] ] },
+    { matrix: 'Basmati rice', words: ['basmati', 'rice'], tests: [
+      [/pesticide|residue/i, 'Pesticide residue panel (EU MRLs)', true], [/aflatoxin/i, 'Aflatoxins', false],
+      [/moisture/i, 'Moisture', true] ] }
+  ];
+  var NUMS = { one: 1, two: 2, three: 3, four: 4, five: 5, six: 6, seven: 7, eight: 8, nine: 9, ten: 10 };
+
+  function esc(s) { return s.replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function mask(text) {
+    return esc(text)
+      .replace(/[\w.+-]+@[\w-]+(\.[\w-]+)+/g, '<span class="mask">[email]</span>')
+      .replace(/(\+?\d[\d\s-]{8,}\d)/g, '<span class="mask">[phone]</span>');
+  }
+  function quote(text, re) { var m = text.match(re); return m ? m[0] : null; }
+
+  function draft(text) {
+    var out = [];
+    var lower = text.toLowerCase();
+    var cat = null, matrixQuote = null;
+    for (var i = 0; i < CATALOGUE.length && !cat; i++) {
+      for (var j = 0; j < CATALOGUE[i].words.length; j++) {
+        var w = CATALOGUE[i].words[j];
+        var idx = lower.indexOf(w);
+        if (idx >= 0) { cat = CATALOGUE[i]; matrixQuote = text.substr(idx, w.length); break; }
+      }
+    }
+    var cnt = text.match(/\b(\d+|one|two|three|four|five|six|seven|eight|nine|ten)\s+(samples?|bottles?|cubes?|packets?|nos\.?)/i);
+    var n = cnt ? (NUMS[cnt[1].toLowerCase()] || parseInt(cnt[1], 10)) : null;
+    out.push({ k: 'Matrix · samples', v: (cat ? cat.matrix : 'Not recognised') + (n ? ' · ' + n : ''), q: [matrixQuote, cnt && cnt[0]].filter(Boolean).join('” · “'), empty: !cat });
+    if (cat) {
+      var found = [];
+      cat.tests.forEach(function (t) { var q = quote(text, t[0]); if (q) found.push({ name: t[1], scope: t[2], q: q }); });
+      if (found.length) {
+        found.forEach(function (t) {
+          out.push({ k: 'Test', v: t.name, badge: t.scope ? '<span class="badge ok">In scope</span>' : '<span class="badge warn">Not in scope</span>', q: t.q });
+        });
+      } else {
+        out.push({ k: 'Tests', v: 'None matched your catalogue', empty: true });
+      }
+    }
+    var due = text.match(/\b(by\s+\d{1,2}\s+[A-Za-z]+|within\s+\d+\s+days|urgent)/i);
+    out.push({ k: 'Due', v: due ? due[0].replace(/^by\s+/i, '') : 'Not stated', q: due && due[0], empty: !due });
+    return out;
+  }
+
+  var req = document.getElementById('req'), fieldsEl = document.getElementById('fields'), maskedEl = document.getElementById('masked');
+  var confirmBtn = document.getElementById('confirmBtn'), summary = document.getElementById('summary');
+  var timer = null;
+  function render() {
+    var text = req.value;
+    maskedEl.innerHTML = mask(text) || '<span style="color:var(--muted)">Type or paste a request…</span>';
+    var f = draft(text);
+    fieldsEl.innerHTML = f.map(function (x, i) {
+      return '<div class="field on' + (x.empty ? ' empty' : '') + '" style="animation-delay:' + (REDUCE ? 0 : i * 70) + 'ms">' +
+        '<div class="k">' + esc(x.k) + '</div><div class="v">' + esc(x.v) + (x.badge || '') + '</div>' +
+        (x.q ? '<div class="q">“' + esc(x.q) + '”</div>' : '') + '</div>';
+    }).join('');
+    var out = f.filter(function (x) { return x.badge && x.badge.indexOf('warn') > 0; }).length;
+    summary.textContent = out ? out + ' test' + (out > 1 ? 's' : '') + ' outside scope: flagged, not added.' : 'Check each field, then confirm.';
+    confirmBtn.classList.remove('done'); confirmBtn.textContent = 'Review & confirm';
+  }
+  req.addEventListener('input', function () { clearTimeout(timer); timer = setTimeout(render, 180); });
+  confirmBtn.addEventListener('click', function () { confirmBtn.classList.add('done'); confirmBtn.textContent = '✓ Confirmed by staff'; });
+  var chips = document.querySelectorAll('.chip');
+  function load(key) {
+    req.value = EXAMPLES[key];
+    chips.forEach(function (c) { c.classList.toggle('active', c.dataset.ex === key); });
+    render();
+  }
+  chips.forEach(function (c) { c.addEventListener('click', function () { load(c.dataset.ex); }); });
+  window.labtessaLoadExample = function (key) {
+    load(key);
+    document.getElementById('try').scrollIntoView({ behavior: REDUCE ? 'auto' : 'smooth', block: 'start' });
+  };
+  load('ghee');
+
+  // ---------- 3D tilt on cards ----------
+  if (!REDUCE && window.matchMedia('(hover: hover)').matches) {
+    document.querySelectorAll('.card, .step').forEach(function (el) {
+      el.classList.add('tilt');
+      el.addEventListener('pointermove', function (e) {
+        var r = el.getBoundingClientRect();
+        var x = (e.clientX - r.left) / r.width - 0.5, y = (e.clientY - r.top) / r.height - 0.5;
+        el.style.transform = 'perspective(700px) rotateX(' + (-y * 8).toFixed(2) + 'deg) rotateY(' + (x * 8).toFixed(2) + 'deg) translateY(-3px)';
+      });
+      el.addEventListener('pointerleave', function () { el.style.transform = ''; });
+    });
+  }
+
+  // ---------- Scroll progress across the four steps ----------
   (function () {
-    var marks = document.querySelectorAll('mark[data-k]');
-    var fields = document.querySelectorAll('.field[data-k]');
-    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    function setAll(on) {
-      marks.forEach(function (m) { m.classList.toggle('on', on); });
-      fields.forEach(function (f) { f.classList.toggle('on', on); });
+    var bar = document.getElementById('prog'), sec = document.getElementById('how');
+    if (!bar || !sec) return;
+    function upd() {
+      var r = sec.getBoundingClientRect(), vh = window.innerHeight;
+      var p = Math.min(1, Math.max(0, (vh * 0.85 - r.top) / (r.height * 0.9)));
+      bar.style.width = (p * 100).toFixed(1) + '%';
     }
-    if (reduce) { setAll(true); return; }
-    var k = 0;
-    function tick() {
-      if (k > 3) { setTimeout(function () { setAll(false); k = 0; setTimeout(tick, 700); }, 3200); return; }
-      marks.forEach(function (m) { if (+m.dataset.k === k) m.classList.add('on'); });
-      fields.forEach(function (f) { if (+f.dataset.k === k) f.classList.add('on'); });
-      k++; setTimeout(tick, 900);
-    }
-    setTimeout(tick, 600);
+    window.addEventListener('scroll', upd, { passive: true }); upd();
   })();
+</script>
+
+<script type="module">
+  import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js';
+
+  const stage = document.getElementById('stage');
+  const canvas = document.getElementById('scene');
+  const tip = document.getElementById('tip');
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  let renderer;
+  try {
+    renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+  } catch (e) {
+    stage.classList.add('no-webgl');
+    throw e;
+  }
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(35, 1, 0.1, 100);
+  camera.position.set(0, 1.2, 9);
+  const LOOK = new THREE.Vector3(0, -0.45, 0);
+  camera.lookAt(LOOK);
+
+  scene.add(new THREE.HemisphereLight(0xffffff, 0x335555, 1.1));
+  const key = new THREE.DirectionalLight(0xffffff, 1.6); key.position.set(4, 6, 5); scene.add(key);
+  const rim = new THREE.DirectionalLight(0x5eead4, 1.2); rim.position.set(-5, 2, -4); scene.add(rim);
+
+  const world = new THREE.Group(); scene.add(world);
+
+  // Rack
+  const rackMat = new THREE.MeshStandardMaterial({ color: 0x0f766e, roughness: 0.45, metalness: 0.1 });
+  const top = new THREE.Mesh(new THREE.BoxGeometry(6.2, 0.18, 1.2), rackMat); top.position.y = -0.35; world.add(top);
+  const base = new THREE.Mesh(new THREE.BoxGeometry(6.2, 0.14, 1.2), rackMat); base.position.y = -2.15; world.add(base);
+  [-3.0, 3.0].forEach(x => { const leg = new THREE.Mesh(new THREE.BoxGeometry(0.14, 1.95, 1.0), rackMat); leg.position.set(x, -1.25, 0); world.add(leg); });
+
+  // Test tube profile (rounded bottom), spun with a lathe
+  const R = 0.32, H = 3.0;
+  const pts = [];
+  for (let i = 0; i <= 10; i++) { const a = -Math.PI / 2 + (i / 10) * (Math.PI / 2); pts.push(new THREE.Vector2(Math.cos(a) * R, Math.sin(a) * R + R)); }
+  pts.push(new THREE.Vector2(R, H));
+  const glassGeo = new THREE.LatheGeometry(pts, 40);
+  const glassMat = new THREE.MeshPhysicalMaterial({ color: 0xffffff, roughness: 0.05, metalness: 0, transparent: true, opacity: 0.22,
+    clearcoat: 1, side: THREE.DoubleSide, depthWrite: false });
+  const lipGeo = new THREE.TorusGeometry(R, 0.035, 10, 40);
+
+  const SAMPLES = [
+    { key: 'ghee',   name: 'Ghee',            test: 'Acid value · Moisture',   color: 0xf2b84b, fill: 0.45 },
+    { key: 'water',  name: 'Drinking water',  test: 'IS 10500 panel',          color: 0x60b6f0, fill: 0.62 },
+    { key: 'herbal', name: 'Ashwagandha',     test: 'Heavy metals · Microbial', color: 0x8fbf5a, fill: 0.38 },
+    { key: 'rice',   name: 'Basmati (export)', test: 'Pesticide residues',     color: 0xe9e2cf, fill: 0.52 },
+    { key: 'cube',   name: 'Concrete cube',   test: 'Compressive strength',    color: 0x9aa3a8, fill: 0.30 }
+  ];
+
+  const tubes = [];
+  SAMPLES.forEach((s, i) => {
+    const g = new THREE.Group();
+    const x = (i - (SAMPLES.length - 1) / 2) * 1.15;
+    g.position.set(x, -2.05, 0);
+    const glass = new THREE.Mesh(glassGeo, glassMat); g.add(glass);
+    const lip = new THREE.Mesh(lipGeo, glassMat); lip.rotation.x = Math.PI / 2; lip.position.y = H; g.add(lip);
+    // Liquid: slightly narrower lathe up to the fill level
+    const lh = H * s.fill;
+    const lp = pts.filter(p => p.y <= lh).map(p => new THREE.Vector2(p.x * 0.9, p.y));
+    lp.push(new THREE.Vector2(R * 0.9, lh));
+    const liquidMat = new THREE.MeshStandardMaterial({ color: s.color, roughness: 0.25, metalness: 0, emissive: s.color, emissiveIntensity: 0.08 });
+    const liquid = new THREE.Mesh(new THREE.LatheGeometry(lp, 40), liquidMat); g.add(liquid);
+    const surface = new THREE.Mesh(new THREE.CircleGeometry(R * 0.9, 40), liquidMat); surface.rotation.x = -Math.PI / 2; surface.position.y = lh; g.add(surface);
+    // Cap colour band = label
+    const cap = new THREE.Mesh(new THREE.CylinderGeometry(R * 1.05, R * 1.05, 0.28, 32), new THREE.MeshStandardMaterial({ color: 0x14b8a6, roughness: 0.4 }));
+    cap.position.y = H + 0.12; g.add(cap);
+    // Invisible hit box for easy hovering
+    const hit = new THREE.Mesh(new THREE.CylinderGeometry(R * 1.4, R * 1.4, H + 0.4, 8), new THREE.MeshBasicMaterial({ visible: false }));
+    hit.position.y = H / 2; hit.userData.index = i; g.add(hit);
+    g.userData = { sample: s, baseY: g.position.y, lift: 0, phase: i * 1.3, liquid: liquidMat };
+    world.add(g); tubes.push({ group: g, hit });
+  });
+
+  // Floating "data" particles linked by faint lines, like records forming
+  const N = 70, P = new Float32Array(N * 3);
+  for (let i = 0; i < N; i++) { P[i * 3] = (Math.random() - 0.5) * 11; P[i * 3 + 1] = Math.random() * 5 - 1; P[i * 3 + 2] = (Math.random() - 0.5) * 6 - 1.5; }
+  const pGeo = new THREE.BufferGeometry(); pGeo.setAttribute('position', new THREE.BufferAttribute(P, 3));
+  const pMat = new THREE.PointsMaterial({ color: 0x14b8a6, size: 0.06, transparent: true, opacity: 0.8 });
+  const points = new THREE.Points(pGeo, pMat); world.add(points);
+  const seg = [];
+  for (let i = 0; i < N; i++) for (let j = i + 1; j < N; j++) {
+    const dx = P[i*3]-P[j*3], dy = P[i*3+1]-P[j*3+1], dz = P[i*3+2]-P[j*3+2];
+    if (dx*dx + dy*dy + dz*dz < 1.6) seg.push(P[i*3], P[i*3+1], P[i*3+2], P[j*3], P[j*3+1], P[j*3+2]);
+  }
+  const lGeo = new THREE.BufferGeometry(); lGeo.setAttribute('position', new THREE.Float32BufferAttribute(seg, 3));
+  const lMat = new THREE.LineBasicMaterial({ color: 0x14b8a6, transparent: true, opacity: 0.18 });
+  world.add(new THREE.LineSegments(lGeo, lMat));
+
+  function applyTheme() {
+    const dark = getComputedStyle(document.documentElement).getPropertyValue('--bg').trim().toLowerCase() === '#0b1110';
+    glassMat.opacity = dark ? 0.16 : 0.22;
+    pMat.color.set(dark ? 0x5eead4 : 0x0f766e);
+    lMat.color.set(dark ? 0x5eead4 : 0x0f766e);
+    lMat.opacity = dark ? 0.22 : 0.16;
+  }
+  applyTheme();
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener?.('change', applyTheme);
+
+  function resize() {
+    const w = stage.clientWidth, h = stage.clientHeight;
+    renderer.setSize(w, h, false);
+    camera.aspect = w / h;
+    camera.position.z = w < 520 ? 12.5 : 9.5;
+    camera.lookAt(LOOK);
+    camera.updateProjectionMatrix();
+  }
+  new ResizeObserver(resize).observe(stage); resize();
+
+  // Interaction: drag to rotate, hover to lift, click to load the sample in the demo
+  const ray = new THREE.Raycaster(), mouse = new THREE.Vector2(-9, -9);
+  let targetRotY = -0.25, rotY = -0.25, targetRotX = 0.08, rotX = 0.08, dragging = false, dragMoved = false, lastX = 0, lastY = 0, hovered = -1;
+  function setMouse(e) { const r = canvas.getBoundingClientRect(); mouse.x = ((e.clientX - r.left) / r.width) * 2 - 1; mouse.y = -((e.clientY - r.top) / r.height) * 2 + 1; return r; }
+  canvas.addEventListener('pointerdown', e => { dragging = true; dragMoved = false; lastX = e.clientX; lastY = e.clientY; });
+  window.addEventListener('pointerup', () => { dragging = false; });
+  canvas.addEventListener('pointermove', e => {
+    const r = setMouse(e);
+    if (dragging) {
+      const dx = e.clientX - lastX, dy = e.clientY - lastY;
+      if (Math.abs(dx) + Math.abs(dy) > 3) dragMoved = true;
+      targetRotY += dx * 0.008; targetRotX = Math.max(-0.25, Math.min(0.45, targetRotX + dy * 0.004));
+      lastX = e.clientX; lastY = e.clientY;
+    } else if (e.pointerType === 'mouse') {
+      targetRotY = -0.25 + mouse.x * 0.35; targetRotX = 0.08 - mouse.y * 0.08;
+    }
+    tip.style.left = (e.clientX - r.left) + 'px'; tip.style.top = (e.clientY - r.top) + 'px';
+  });
+  canvas.addEventListener('pointerleave', () => { mouse.set(-9, -9); });
+  canvas.addEventListener('click', e => {
+    if (dragMoved) return;
+    setMouse(e);
+    ray.setFromCamera(mouse, camera);
+    const hit = ray.intersectObjects(tubes.map(o => o.hit), false)[0];
+    const i = hit ? hit.object.userData.index : hovered;
+    if (i >= 0 && window.labtessaLoadExample) window.labtessaLoadExample(SAMPLES[i].key);
+  });
+
+  let visible = true;
+  new IntersectionObserver(es => { visible = es[0].isIntersecting; if (visible) loop(); }).observe(stage);
+
+  const clock = new THREE.Clock();
+  let running = false;
+  function frame() {
+    const t = clock.getElapsedTime();
+    rotY += (targetRotY - rotY) * 0.06; rotX += (targetRotX - rotX) * 0.06;
+    world.rotation.y = rotY + (reduce ? 0 : Math.sin(t * 0.25) * 0.08);
+    world.rotation.x = rotX;
+
+    ray.setFromCamera(mouse, camera);
+    const hits = ray.intersectObjects(tubes.map(o => o.hit), false);
+    const h = hits.length ? hits[0].object.userData.index : -1;
+    if (h !== hovered) {
+      hovered = h;
+      canvas.style.cursor = h >= 0 ? 'pointer' : '';
+      if (h >= 0) { const s = SAMPLES[h]; tip.innerHTML = '<b>' + s.name + '</b><span>' + s.test + ' · click to try</span>'; tip.classList.add('on'); }
+      else tip.classList.remove('on');
+    }
+    tubes.forEach((o, i) => {
+      const d = o.group.userData;
+      d.lift += ((i === hovered ? 0.55 : 0) - d.lift) * 0.12;
+      o.group.position.y = d.baseY + d.lift + (reduce ? 0 : Math.sin(t * 1.2 + d.phase) * 0.04);
+      d.liquid.emissiveIntensity = 0.08 + d.lift * 0.4;
+    });
+    if (!reduce) points.rotation.y = t * 0.03;
+    renderer.render(scene, camera);
+  }
+  function loop() {
+    if (running) return; running = true;
+    (function tick() {
+      if (!visible) { running = false; return; }
+      frame();
+      requestAnimationFrame(tick);
+    })();
+  }
+  loop();
 </script>
 </body>
 </html>
