@@ -145,6 +145,23 @@
   .req small { display: block; color: var(--muted); font-size: 11px; margin-bottom: 2px; font-family: Inter, sans-serif; }
 
   /* split */
+  .coa-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 14px; }
+  .coa-list li { display: grid; grid-template-columns: 28px 1fr; gap: 10px; }
+  .coa-list b { display: block; margin-bottom: 2px; }
+  .coa-list span { color: var(--muted); font-size: 15px; }
+  .coa-list .dot { width: 28px; height: 28px; border-radius: 8px; background: var(--accent-soft); color: var(--accent); display: grid; place-items: center; font-weight: 700; font-size: 14px; }
+  .coa { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; box-shadow: var(--shadow); padding: 22px; font-size: 14px; }
+  .coa h3 { margin: 0 0 2px; font-size: 16px; }
+  .coa .meta { color: var(--muted); font-size: 12px; margin-bottom: 14px; }
+  .coa table { width: 100%; border-collapse: collapse; margin-bottom: 14px; }
+  .coa th, .coa td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--line); }
+  .coa th { color: var(--muted); font-weight: 600; font-size: 12px; }
+  .coa td.calc::after { content: " †"; color: var(--muted); }
+  .coa .pass { color: var(--ok); font-weight: 700; } .coa .fail { color: var(--warn); font-weight: 700; }
+  .coa .foot { display: grid; grid-template-columns: 56px 1fr; gap: 12px; align-items: center; color: var(--muted); font-size: 12px; }
+  .coa .qr { width: 56px; height: 56px; border-radius: 6px; background:
+      conic-gradient(from 90deg at 30% 30%, var(--text) 0 25%, transparent 0 50%, var(--text) 0 75%, transparent 0) 0 0/14px 14px,
+      var(--surface-2); border: 3px solid var(--text); }
   .split { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
   @media (max-width: 900px) { .split { grid-template-columns: 1fr; gap: 28px; } }
   .checks { list-style: none; padding: 0; margin: 0; display: grid; gap: 14px; }
@@ -251,6 +268,7 @@
         <a href="#how">How it works</a>
         <a href="#features">Features</a>
         <a href="#industries">Industries</a>
+        <a href="#coa">COAs</a>
         <a href="#trust">Data &amp; security</a>
         <a href="#faq">FAQ</a>
       </div>
@@ -390,6 +408,42 @@
         <div class="card reveal"><h3>💧 Water &amp; environment</h3><p>Drinking water, effluent and environmental monitoring labs.</p><div class="req mono"><small>A client writes</small>“Drinking water, full IS 10500”</div></div>
         <div class="card reveal"><h3>🏗️ Construction materials</h3><p>Cement, concrete, steel, soil and aggregate testing.</p><div class="req mono"><small>A client writes</small>“Cube test 28 days, M25, 6 cubes”</div></div>
         <div class="card reveal"><h3>🏭 In-house QC</h3><p>Quality labs inside dairies, spice, edible-oil, packaging and cosmetics makers.</p><div class="req mono"><small>A client writes</small>“Batch 2211 COA: moisture, FFA, peroxide value”</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="coa">
+    <div class="wrap split">
+      <div>
+        <div class="eyebrow">Cannabis, hemp &amp; COAs</div>
+        <h2>Certificates of analysis, worked out for you</h2>
+        <p class="sub">For cannabis and hemp labs, and any lab that issues COAs with label claims: supplements, edibles, extracts. You enter your own formulas, limits and tolerances; LabTessa does the arithmetic and keeps the record.</p>
+        <ul class="coa-list">
+          <li><i class="dot">Σ</i><div><b>Calculated results</b><span>Total THC from Δ9-THC and THCA, dry-weight values, mg per unit or serving. Recalculated, with a reason, whenever an input changes, and still approved by a second person.</span></div></li>
+          <li><i class="dot">±</i><div><b>Label claims</b><span>Measured against what is printed on the pack, within the tolerance you set, with the difference shown.</span></div></li>
+          <li><i class="dot">✓</i><div><b>Pass / fail by panel</b><span>Potency, pesticides, heavy metals, microbiology and label claim, each with its verdict, an overall result and your decision rule.</span></div></li>
+          <li><i class="dot">⌁</i><div><b>QR-verified reports</b><span>Anyone can scan the COA to see that it is genuine and current, without seeing your client or the results.</span></div></li>
+          <li><i class="dot">⛓</i><div><b>Batch, sampling &amp; custody</b><span>Batch and traceability tag, licence number, field sampling record and a chain of custody that is never edited.</span></div></li>
+        </ul>
+      </div>
+      <div class="coa reveal" aria-label="Example certificate of analysis summary">
+        <h3>Certificate of analysis</h3>
+        <div class="meta mono">LT/2026/R00042 · Batch LOT-77 · Flower · Sampled by the lab</div>
+        <table>
+          <tr><th>Panel</th><th>Result</th></tr>
+          <tr><td>Potency</td><td>Total THC 17.94 %</td></tr>
+          <tr><td>Heavy metals</td><td class="pass">Pass</td></tr>
+          <tr><td>Pesticides</td><td class="pass">Pass</td></tr>
+          <tr><td>Label claim (18 % ± 10 %)</td><td class="pass">Pass, −0.3 %</td></tr>
+          <tr><td><b>Overall</b></td><td class="pass">Pass</td></tr>
+        </table>
+        <table>
+          <tr><th>Analyte</th><th>Result</th></tr>
+          <tr><td>Δ9-THC</td><td class="mono">0.40 %</td></tr>
+          <tr><td>THCA</td><td class="mono">20.0 %</td></tr>
+          <tr><td class="calc">Total THC = Δ9-THC + 0.877 × THCA</td><td class="mono">17.94 %</td></tr>
+        </table>
+        <div class="foot"><div class="qr" aria-hidden="true"></div><div>Scan to check this report is genuine and current. † Calculated from the results above.</div></div>
       </div>
     </div>
   </section>
