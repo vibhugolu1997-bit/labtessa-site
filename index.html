@@ -181,6 +181,28 @@
   .report .hash { margin-top: 10px; font-size: 11px; color: var(--muted); word-break: break-all; }
   .table-scroll { overflow-x: auto; }
 
+  /* pricing */
+  .seg { display: inline-flex; background: var(--surface-2); border: 1px solid var(--line); border-radius: 999px; padding: 4px; gap: 4px; margin: -16px 0 26px; }
+  .seg button { font: inherit; font-size: 14px; font-weight: 600; border: 0; background: transparent; color: var(--muted); padding: 7px 16px; border-radius: 999px; cursor: pointer; }
+  .seg button[aria-pressed="true"] { background: var(--surface); color: var(--accent); box-shadow: 0 1px 4px rgba(0,0,0,.08); }
+  .plans { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; align-items: stretch; }
+  @media (max-width: 900px) { .plans { grid-template-columns: 1fr; max-width: 460px; } }
+  .plan { position: relative; background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 24px; display: flex; flex-direction: column; }
+  .plan.pop { border: 2px solid var(--accent); box-shadow: var(--shadow); }
+  .plan .tag { position: absolute; top: -12px; left: 24px; background: var(--accent); color: var(--on-accent); font-size: 12px; font-weight: 700; padding: 3px 10px; border-radius: 999px; }
+  .plan h3 { margin: 0 0 4px; font-size: 18px; }
+  .plan .for { color: var(--muted); font-size: 14px; margin: 0 0 16px; }
+  .price { font-size: 38px; font-weight: 800; letter-spacing: -0.03em; line-height: 1; }
+  .price small { font-size: 15px; font-weight: 500; color: var(--muted); letter-spacing: 0; }
+  .yearly { color: var(--muted); font-size: 13px; margin: 6px 0 16px; }
+  .founding { font-size: 13px; background: var(--ok-soft); color: var(--ok); border-radius: 8px; padding: 6px 10px; margin-bottom: 16px; }
+  .plan ul { list-style: none; padding: 0; margin: 0 0 20px; display: grid; gap: 8px; font-size: 15px; }
+  .plan li { display: grid; grid-template-columns: 20px 1fr; gap: 8px; }
+  .plan li svg { width: 18px; height: 18px; color: var(--accent); margin-top: 3px; }
+  .plan .btn { margin-top: auto; justify-content: center; }
+  .plan .btn.ghost { color: var(--text); }
+  .price-notes { color: var(--muted); font-size: 14px; margin-top: 22px; display: grid; gap: 4px; }
+
   /* faq */
   details { border-bottom: 1px solid var(--line); padding: 16px 0; }
   details:first-of-type { border-top: 1px solid var(--line); }
@@ -270,6 +292,7 @@
         <a href="#industries">Industries</a>
         <a href="#coa">COAs</a>
         <a href="#trust">Data &amp; security</a>
+        <a href="#pricing">Pricing</a>
         <a href="#faq">FAQ</a>
       </div>
       <a class="btn small" href="#pilot">Join the pilot</a>
@@ -482,6 +505,65 @@
     </div>
   </section>
 
+  <section id="pricing">
+    <div class="wrap">
+      <div class="eyebrow">Pricing</div>
+      <h2>Simple monthly plans. No setup fee.</h2>
+      <p class="sub">Every plan includes every feature: AI request intake, COAs with QR checks, calculated tests, second-person approval, the audit trail and nightly backups. Plans differ only in users and samples.</p>
+      <div class="seg" role="group" aria-label="Show prices for">
+        <button type="button" data-region="in" aria-pressed="false">India (₹)</button>
+        <button type="button" data-region="intl" aria-pressed="true">International ($)</button>
+      </div>
+      <div class="plans">
+        <div class="plan reveal">
+          <h3>Starter</h3>
+          <p class="for">A one-room lab or an in-house QC lab</p>
+          <div class="price"><span data-in="₹2,999" data-intl="$99">$99</span> <small>/ month</small></div>
+          <div class="yearly"><span data-in="₹29,990" data-intl="$990">$990</span> a year if paid yearly (2 months free)</div>
+          <div class="founding">Founding lab price: <b data-in="₹1,999" data-intl="$59">$59</b> / month, locked for 12 months</div>
+          <ul>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>3 users</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>300 samples a month</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Email support</li>
+          </ul>
+          <a class="btn ghost" href="#pilot">Start a pilot</a>
+        </div>
+        <div class="plan pop reveal">
+          <span class="tag">Most labs</span>
+          <h3>Lab</h3>
+          <p class="for">A typical NABL or ISO/IEC 17025 testing lab</p>
+          <div class="price"><span data-in="₹7,999" data-intl="$249">$249</span> <small>/ month</small></div>
+          <div class="yearly"><span data-in="₹79,990" data-intl="$2,490">$2,490</span> a year if paid yearly (2 months free)</div>
+          <div class="founding">Founding lab price: <b data-in="₹4,999" data-intl="$149">$149</b> / month, locked for 12 months</div>
+          <ul>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>10 users</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>1,500 samples a month</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Email and WhatsApp support</li>
+          </ul>
+          <a class="btn" href="#pilot">Start a pilot</a>
+        </div>
+        <div class="plan reveal">
+          <h3>Lab Plus</h3>
+          <p class="for">Busy or multi-discipline labs</p>
+          <div class="price"><span data-in="₹14,999" data-intl="$499">$499</span> <small>/ month</small></div>
+          <div class="yearly"><span data-in="₹1,49,990" data-intl="$4,990">$4,990</span> a year if paid yearly (2 months free)</div>
+          <div class="founding">Founding lab price: <b data-in="₹9,999" data-intl="$299">$299</b> / month, locked for 12 months</div>
+          <ul>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>25 users</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>5,000 samples a month</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Priority support and an onboarding call</li>
+          </ul>
+          <a class="btn ghost" href="#pilot">Start a pilot</a>
+        </div>
+      </div>
+      <div class="price-notes">
+        <span><b>Founding lab prices</b> are for the first 10 labs that sign up after a pilot, and labs we have already written to.</span>
+        <span>Setup of your test catalogue, scope and users is free. Custom report templates or migrating old data are quoted separately.</span>
+        <span>More than 25 users or several sites? <a href="mailto:hello@labtessa.com?subject=LabTessa%20pricing">Email us</a>. Prices exclude any applicable taxes.</span>
+      </div>
+    </div>
+  </section>
+
   <section id="faq" class="alt">
     <div class="wrap">
       <div class="eyebrow">FAQ</div>
@@ -491,7 +573,7 @@
         <details><summary>What if the AI gets something wrong?</summary><p>Each drafted field must quote the exact words it came from, and tests must come from your own catalogue. If there's no matching quote, or a test isn't one you offer, the draft says so. You correct it before confirming, the same as checking a colleague's entry.</p></details>
         <details><summary>Can we use LabTessa without AI?</summary><p>Yes. AI intake is off until a lab admin switches it on, and manual entry always works.</p></details>
         <details><summary>Will it fit our accreditation?</summary><p>LabTessa is built around ISO/IEC 17025 practice: a scope per test and matrix, second-person approval, write-once results, revised reports instead of edits, and a full audit trail. Your accreditation body assesses your lab, not the software, but these features are designed to make that assessment straightforward.</p></details>
-        <details><summary>How much does it cost?</summary><p>LabTessa is priced for small and mid-sized labs. Pilot labs get special terms, and we will share pricing when we talk.</p></details>
+        <details><summary>How much does it cost?</summary><p>Plans start at ₹2,999 a month in India and $99 a month elsewhere, with no setup fee and every feature included. See <a href="#pricing">Pricing</a>. The first 10 labs keep a lower founding price for 12 months, and pilots are free for 3 months.</p></details>
         <details><summary>What does a pilot involve?</summary><p>We set up your catalogue, scope and users, then you use LabTessa alongside your current process for a few weeks. We meet regularly and fix what gets in your way. There's a short written agreement covering your data and what happens to it when the pilot ends.</p></details>
       </div>
     </div>
@@ -829,6 +911,26 @@
     })();
   }
   loop();
+</script>
+<script>
+  // Pricing: India (INR) or international (USD). Defaults to India for visitors in Indian time zones.
+  (function () {
+    var buttons = document.querySelectorAll('.seg button[data-region]');
+    if (!buttons.length) return;
+    function show(region) {
+      document.querySelectorAll('[data-in][data-intl]').forEach(function (el) {
+        el.textContent = el.getAttribute(region === 'in' ? 'data-in' : 'data-intl');
+      });
+      buttons.forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.region === region ? 'true' : 'false'); });
+      try { localStorage.setItem('lt-region', region); } catch (e) {}
+    }
+    buttons.forEach(function (b) { b.addEventListener('click', function () { show(b.dataset.region); }); });
+    var saved = null;
+    try { saved = localStorage.getItem('lt-region'); } catch (e) {}
+    var tz = '';
+    try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch (e) {}
+    show(saved || (/^Asia\/(Kolkata|Calcutta)$/.test(tz) ? 'in' : 'intl'));
+  })();
 </script>
 </body>
 </html>
