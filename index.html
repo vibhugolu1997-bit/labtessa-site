@@ -201,6 +201,16 @@
   .plan li svg { width: 18px; height: 18px; color: var(--accent); margin-top: 3px; }
   .plan .btn { margin-top: auto; justify-content: center; }
   .plan .btn.ghost { color: var(--text); }
+  .ent { margin-top: 16px; background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 24px; display: grid; grid-template-columns: 1.1fr 1.4fr auto; gap: 24px; align-items: center; }
+  @media (max-width: 900px) { .ent { grid-template-columns: 1fr; max-width: 460px; gap: 16px; } }
+  .ent h3 { margin: 0 0 4px; font-size: 18px; }
+  .ent .for { color: var(--muted); font-size: 14px; margin: 0 0 12px; }
+  .ent .price { font-size: 30px; }
+  .ent ul { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 8px 16px; font-size: 15px; }
+  @media (max-width: 600px) { .ent ul { grid-template-columns: 1fr; } }
+  .ent li { display: grid; grid-template-columns: 20px 1fr; gap: 8px; }
+  .ent li svg { width: 18px; height: 18px; color: var(--accent); margin-top: 3px; }
+  .ent .btn { justify-content: center; white-space: nowrap; }
   .price-notes { color: var(--muted); font-size: 14px; margin-top: 22px; display: grid; gap: 4px; }
 
   /* faq */
@@ -556,10 +566,26 @@
           <a class="btn ghost" href="#pilot">Start a pilot</a>
         </div>
       </div>
+      <div class="ent reveal">
+        <div>
+          <h3>Enterprise</h3>
+          <p class="for">Multi-branch labs and lab networks, on a 12-month contract</p>
+          <div class="price"><small>from</small> <span data-in="₹50,000" data-intl="$799">$799</span> <small>/ month</small></div>
+        </div>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Several branches, up to 75 users</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>No monthly sample limit</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Your old data moved in, reports in your format</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Validation support for your audit</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Named contact, reply within 4 working hours</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Training at each branch; dedicated server on request</li>
+        </ul>
+        <a class="btn" href="mailto:hello@labtessa.com?subject=LabTessa%20Enterprise">Talk to us</a>
+      </div>
       <div class="price-notes">
         <span><b>Founding lab prices</b> are for the first 10 labs that sign up after a pilot, and labs we have already written to.</span>
-        <span>Setup of your test catalogue, scope and users is free. Custom report templates or migrating old data are quoted separately.</span>
-        <span>More than 25 users or several sites? <a href="mailto:hello@labtessa.com?subject=LabTessa%20pricing">Email us</a>. Prices exclude any applicable taxes.</span>
+        <span>Setup of your test catalogue, scope and users is free. On Starter, Lab and Lab Plus, custom report templates or migrating old data are quoted separately.</span>
+        <span>Questions about plans? <a href="mailto:hello@labtessa.com?subject=LabTessa%20pricing">Email us</a>. Prices exclude any applicable taxes.</span>
       </div>
     </div>
   </section>
