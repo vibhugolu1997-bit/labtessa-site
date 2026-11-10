@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>8 real problems in testing labs, and how a LIMS fixes them · LabTessa</title>
+<meta name="description" content="Re-typed requests, wrong tests, calculation slips, accreditation marks on the wrong tests, edited reports and fake COAs. Eight everyday problems in testing labs and how LabTessa handles each one.">
+<meta property="og:title" content="8 real problems in testing labs, and how a LIMS fixes them">
+<meta property="og:description" content="Eight everyday problems in ISO/IEC 17025 testing labs and how LabTessa handles each one.">
+<meta property="og:url" content="https://labtessa.com/blog/real-lab-problems.html">
+<meta property="og:type" content="article">
+<meta name="theme-color" content="#1d4ed8">
+<link rel="canonical" href="https://labtessa.com/blog/real-lab-problems.html">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231d4ed8'/%3E%3Cpath d='M11 7h10v3h-2v5.5l6 9.5a2 2 0 0 1-1.7 3H8.7A2 2 0 0 1 7 25l6-9.5V10h-2z' fill='white'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f6f8fb; --surface: #ffffff; --surface-2: #eef2f8; --text: #0b1324; --muted: #526077;
+    --line: #dbe2ec; --accent: #1d4ed8; --accent-soft: #e0ecff; --on-accent: #ffffff;
+    --bad: #b42318; --bad-soft: #fdecea; --ok: #15803d; --ok-soft: #dcfce7;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0a0f1a; --surface: #111827; --surface-2: #162033; --text: #e6edf7; --muted: #94a3b8;
+      --line: #243047; --accent: #60a5fa; --accent-soft: #102a4c; --on-accent: #04122b;
+      --bad: #f87171; --bad-soft: #3a1414; --ok: #4ade80; --ok-soft: #0f2e1b;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0a0f1a; --surface: #111827; --surface-2: #162033; --text: #e6edf7; --muted: #94a3b8;
+    --line: #243047; --accent: #60a5fa; --accent-soft: #102a4c; --on-accent: #04122b;
+    --bad: #f87171; --bad-soft: #3a1414; --ok: #4ade80; --ok-soft: #0f2e1b;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text);
+    font: 17px/1.7 Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  a { color: var(--accent); }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 0 16px; }
+  nav { position: sticky; top: 0; z-index: 10; background: color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+  nav .wrap { max-width: 1120px; display: flex; align-items: center; justify-content: space-between; height: 60px; gap: 16px; }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 19px; letter-spacing: -0.02em; text-decoration: none; color: var(--text); }
+  .brand svg { width: 28px; height: 28px; }
+  .navr { display: flex; align-items: center; gap: 18px; font-size: 15px; }
+  .navr a.plain { color: var(--muted); text-decoration: none; }
+  .btn { display: inline-flex; align-items: center; background: var(--accent); color: var(--on-accent); text-decoration: none;
+    padding: 10px 16px; border-radius: 10px; font-weight: 600; font-size: 15px; white-space: nowrap; }
+  header { padding: 56px 0 24px; }
+  .eyebrow { color: var(--accent); font-weight: 700; font-size: 14px; letter-spacing: .04em; text-transform: uppercase; }
+  h1 { font-size: clamp(30px, 5vw, 44px); line-height: 1.15; letter-spacing: -0.03em; margin: 10px 0 14px; }
+  .meta { color: var(--muted); font-size: 15px; }
+  .lede { font-size: 19px; color: var(--muted); }
+  h2 { font-size: 24px; line-height: 1.3; letter-spacing: -0.02em; margin: 44px 0 12px; }
+  .num { display: inline-grid; place-items: center; width: 34px; height: 34px; border-radius: 10px; background: var(--accent-soft);
+    color: var(--accent); font-size: 16px; font-weight: 800; margin-right: 10px; vertical-align: 3px; }
+  .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 14px 0 6px; }
+  @media (max-width: 640px) { .pair { grid-template-columns: 1fr; } }
+  .card { border-radius: 14px; padding: 14px 16px; font-size: 16px; line-height: 1.6; }
+  .card b { display: block; font-size: 13px; letter-spacing: .04em; text-transform: uppercase; margin-bottom: 4px; }
+  .now { background: var(--bad-soft); }
+  .now b { color: var(--bad); }
+  .fix { background: var(--ok-soft); }
+  .fix b { color: var(--ok); }
+  .note { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 18px 20px; margin: 36px 0; }
+  .cta { background: var(--accent); color: var(--on-accent); border-radius: 18px; padding: 28px 24px; margin: 48px 0 24px; }
+  .cta h2 { margin: 0 0 8px; color: var(--on-accent); }
+  .cta p { margin: 0 0 18px; opacity: .92; }
+  .cta a.btn { background: var(--on-accent); color: var(--accent); }
+  footer { padding: 32px 0 44px; color: var(--muted); font-size: 14px; border-top: 1px solid var(--line); margin-top: 40px; }
+  footer .wrap { max-width: 1120px; display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+  footer a { color: inherit; }
+</style>
+</head>
+<body>
+  <nav>
+    <div class="wrap">
+      <a class="brand" href="/">
+        <svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="7" fill="#1d4ed8"/><path d="M11 7h10v3h-2v5.5l6 9.5a2 2 0 0 1-1.7 3H8.7A2 2 0 0 1 7 25l6-9.5V10h-2z" fill="#fff"/></svg>
+        LabTessa
+      </a>
+      <div class="navr">
+        <a class="plain" href="/blog/">Blog</a>
+        <a class="btn" href="/#pilot">Join the pilot</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="wrap">
+    <header>
+      <div class="eyebrow">LabTessa blog</div>
+      <h1>8 real problems in testing labs, and how a LIMS fixes them</h1>
+      <p class="meta">Vaibhav Singh, founder · 10 November 2026 · 6 min read</p>
+      <p class="lede">Most testing labs don't lose time on the test itself. They lose it before and after: typing in requests, choosing the right tests, checking calculations, fixing reports and answering "is this certificate real?" emails. These are eight problems we hear about again and again, and how LabTessa deals with each one.</p>
+    </header>
+
+    <h2><span class="num">1</span>Every request is typed in by hand</h2>
+    <p>A client sends an email, a PDF or a WhatsApp photo listing five samples and the tests they want. Someone in the lab reads it and types it all into a register or spreadsheet. It's slow, and a single slip, such as a wrong batch number or a missed test, follows the sample all the way to the report.</p>
+    <div class="pair">
+      <div class="card now"><b>Today</b>Re-typing every request, then checking it again.</div>
+      <div class="card fix"><b>With LabTessa</b>Paste or upload the request. LabTessa drafts the samples and tests and shows the exact words each field came from. Nothing is saved until your staff check it and confirm.</div>
+    </div>
+    <p>AI intake is optional. It stays off until a lab admin turns it on, and manual entry always works.</p>
+
+    <h2><span class="num">2</span>The wrong test, or a test you don't offer</h2>
+    <p>Clients write "check for heavy metals" or "full microbiology". Staff have to map that to your actual methods, matrices and prices, and mistakes are easy to make.</p>
+    <div class="pair">
+      <div class="card now"><b>Today</b>Each person matches the client's words to tests in their own way.</div>
+      <div class="card fix"><b>With LabTessa</b>Tests come only from your own catalogue. If a request asks for something you don't offer, the draft says so instead of guessing.</div>
+    </div>
+
+    <h2><span class="num">3</span>Calculation slips in spreadsheets</h2>
+    <p>Derived results such as Total THC (delta-9 THC + 0.877 × THCA), moisture-corrected values or averages are often worked out in a spreadsheet and copied across. One broken formula or copy-paste error can go unnoticed for months.</p>
+    <div class="pair">
+      <div class="card now"><b>Today</b>Formulas live in personal spreadsheets, and results are copied by hand.</div>
+      <div class="card fix"><b>With LabTessa</b>Calculated tests use the formula and factors your lab enters once. Each result is worked out the same way every time, from the values recorded in the system.</div>
+    </div>
+
+    <h2><span class="num">4</span>Results checked against the wrong limit</h2>
+    <p>Is 0.4 mg/kg a pass or a fail? It depends on the product, the regulation and the edition. When limits sit in someone's head or an old printout, mistakes reach clients.</p>
+    <div class="pair">
+      <div class="card now"><b>Today</b>Limits are looked up by hand, and the source isn't recorded.</div>
+      <div class="card fix"><b>With LabTessa</b>Each limit is stored with its source, so the report shows what the result was checked against. Label claims can be compared with the measured result within the tolerance you set.</div>
+    </div>
+
+    <h2><span class="num">5</span>The accreditation mark on tests outside your scope</h2>
+    <p>Putting an NABL or ISO/IEC 17025 mark on a test that isn't in your accredited scope is a common audit finding, and it's easy to do when one report template is used for everything.</p>
+    <div class="pair">
+      <div class="card now"><b>Today</b>One template, with the mark on every report.</div>
+      <div class="card fix"><b>With LabTessa</b>Scope is recorded per test and matrix. The report marks only the tests that are inside your scope.</div>
+    </div>
+
+    <h2><span class="num">6</span>One person does everything</h2>
+    <p>In a busy lab, the analyst who entered the result often releases the report too. ISO/IEC 17025 expects results to be reviewed, and auditors look for evidence that they were.</p>
+    <div class="pair">
+      <div class="card now"><b>Today</b>A signature on paper, if there's time.</div>
+      <div class="card fix"><b>With LabTessa</b>Second-person approval is built in. The person who entered a result can't also approve it, and every step is recorded with who did it and when.</div>
+    </div>
+
+    <h2><span class="num">7</span>Reports quietly edited after release</h2>
+    <p>A client asks for a small change, a file is edited and re-sent, and now two versions of the same report exist. Months later, nobody can say which one is right.</p>
+    <div class="pair">
+      <div class="card now"><b>Today</b>Edit the Word file and send it again.</div>
+      <div class="card fix"><b>With LabTessa</b>Results are write-once. A change creates a revised report that says it replaces the earlier one, and the full audit trail shows what changed and why.</div>
+    </div>
+
+    <h2><span class="num">8</span>"Is this certificate real?"</h2>
+    <p>Brands forward test reports and COAs to retailers and buyers, and fake or altered certificates are a real problem. Labs end up answering verification emails one by one.</p>
+    <div class="pair">
+      <div class="card now"><b>Today</b>Buyers email or phone the lab to check.</div>
+      <div class="card fix"><b>With LabTessa</b>Every report and COA has a QR code. Scanning it shows whether the report is genuine and whether it has been revised, without showing the client's name or results, so it's safe to print on packaging.</div>
+    </div>
+
+    <div class="note">
+      <strong>Behind all eight:</strong> sample receipt with chain of custody and field sampling, nightly encrypted backups, and your data hosted in India. LabTessa is built around ISO/IEC 17025 practice. Your accreditation body assesses your lab, not the software, but these features are designed to make that assessment simpler.
+    </div>
+
+    <div class="cta">
+      <h2>See it with your own requests</h2>
+      <p>We are offering a free pilot to a small number of labs. We set up your test catalogue and scope, and you tell us what to improve. Plans start at ₹2,999 a month in India and USD 99 elsewhere, with no setup fee.</p>
+      <a class="btn" href="/#pilot">Join the pilot</a>
+    </div>
+
+    <p class="meta">Questions or a problem we missed? Email <a href="mailto:hello@labtessa.com">hello@labtessa.com</a>. We read every message.</p>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <span>© 2026 LabTessa</span>
+      <address style="font-style: normal;">Professor Colony, Budaun 243601, India</address>
+      <span><a href="mailto:hello@labtessa.com">hello@labtessa.com</a></span>
+    </div>
+  </footer>
+</body>
+</html>
