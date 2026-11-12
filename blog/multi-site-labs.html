@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Running several testing labs? 6 places where sites drift apart, and how to keep them on one process · LabTessa</title>
+<meta name="description" content="Different test lists, clashing sample numbers, the accreditation mark on the wrong site's tests, copied limits and uneven review. Six ways multi-site testing labs drift apart and how LabTessa keeps every site on one process.">
+<meta property="og:title" content="Running several testing labs? 6 places where sites drift apart, and how to keep them on one process">
+<meta property="og:description" content="Six ways multi-site ISO/IEC 17025 testing labs drift apart, and how LabTessa keeps every site on one process.">
+<meta property="og:url" content="https://labtessa.com/blog/multi-site-labs.html">
+<meta property="og:type" content="article">
+<meta name="theme-color" content="#1d4ed8">
+<link rel="canonical" href="https://labtessa.com/blog/multi-site-labs.html">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231d4ed8'/%3E%3Cpath d='M11 7h10v3h-2v5.5l6 9.5a2 2 0 0 1-1.7 3H8.7A2 2 0 0 1 7 25l6-9.5V10h-2z' fill='white'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f6f8fb; --surface: #ffffff; --surface-2: #eef2f8; --text: #0b1324; --muted: #526077;
+    --line: #dbe2ec; --accent: #1d4ed8; --accent-soft: #e0ecff; --on-accent: #ffffff;
+    --bad: #b42318; --bad-soft: #fdecea; --ok: #15803d; --ok-soft: #dcfce7;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0a0f1a; --surface: #111827; --surface-2: #162033; --text: #e6edf7; --muted: #94a3b8;
+      --line: #243047; --accent: #60a5fa; --accent-soft: #102a4c; --on-accent: #04122b;
+      --bad: #f87171; --bad-soft: #3a1414; --ok: #4ade80; --ok-soft: #0f2e1b;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0a0f1a; --surface: #111827; --surface-2: #162033; --text: #e6edf7; --muted: #94a3b8;
+    --line: #243047; --accent: #60a5fa; --accent-soft: #102a4c; --on-accent: #04122b;
+    --bad: #f87171; --bad-soft: #3a1414; --ok: #4ade80; --ok-soft: #0f2e1b;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text);
+    font: 17px/1.7 Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  a { color: var(--accent); }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 0 16px; }
+  nav { position: sticky; top: 0; z-index: 10; background: color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+  nav .wrap { max-width: 1120px; display: flex; align-items: center; justify-content: space-between; height: 60px; gap: 16px; }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 19px; letter-spacing: -0.02em; text-decoration: none; color: var(--text); }
+  .brand svg { width: 28px; height: 28px; }
+  .navr { display: flex; align-items: center; gap: 18px; font-size: 15px; }
+  .navr a.plain { color: var(--muted); text-decoration: none; }
+  .btn { display: inline-flex; align-items: center; background: var(--accent); color: var(--on-accent); text-decoration: none;
+    padding: 10px 16px; border-radius: 10px; font-weight: 600; font-size: 15px; white-space: nowrap; }
+  header { padding: 56px 0 24px; }
+  .eyebrow { color: var(--accent); font-weight: 700; font-size: 14px; letter-spacing: .04em; text-transform: uppercase; }
+  h1 { font-size: clamp(30px, 5vw, 44px); line-height: 1.15; letter-spacing: -0.03em; margin: 10px 0 14px; }
+  .meta { color: var(--muted); font-size: 15px; }
+  .lede { font-size: 19px; color: var(--muted); }
+  h2 { font-size: 24px; line-height: 1.3; letter-spacing: -0.02em; margin: 44px 0 12px; }
+  .num { display: inline-grid; place-items: center; width: 34px; height: 34px; border-radius: 10px; background: var(--accent-soft);
+    color: var(--accent); font-size: 16px; font-weight: 800; margin-right: 10px; vertical-align: 3px; }
+  .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 14px 0 6px; }
+  @media (max-width: 640px) { .pair { grid-template-columns: 1fr; } }
+  .card { border-radius: 14px; padding: 14px 16px; font-size: 16px; line-height: 1.6; }
+  .card b { display: block; font-size: 13px; letter-spacing: .04em; text-transform: uppercase; margin-bottom: 4px; }
+  .now { background: var(--bad-soft); }
+  .now b { color: var(--bad); }
+  .fix { background: var(--ok-soft); }
+  .fix b { color: var(--ok); }
+  .note { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 18px 20px; margin: 36px 0; }
+  .cta { background: var(--accent); color: var(--on-accent); border-radius: 18px; padding: 28px 24px; margin: 48px 0 24px; }
+  .cta h2 { margin: 0 0 8px; color: var(--on-accent); }
+  .cta p { margin: 0 0 18px; opacity: .92; }
+  .cta a.btn { background: var(--on-accent); color: var(--accent); }
+  footer { padding: 32px 0 44px; color: var(--muted); font-size: 14px; border-top: 1px solid var(--line); margin-top: 40px; }
+  footer .wrap { max-width: 1120px; display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+  footer a { color: inherit; }
+</style>
+</head>
+<body>
+  <nav>
+    <div class="wrap">
+      <a class="brand" href="/">
+        <svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="7" fill="#1d4ed8"/><path d="M11 7h10v3h-2v5.5l6 9.5a2 2 0 0 1-1.7 3H8.7A2 2 0 0 1 7 25l6-9.5V10h-2z" fill="#fff"/></svg>
+        LabTessa
+      </a>
+      <div class="navr">
+        <a class="plain" href="/blog/">Blog</a>
+        <a class="btn" href="/#pilot">Join the pilot</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="wrap">
+    <header>
+      <div class="eyebrow">LabTessa blog</div>
+      <h1>Running several testing labs? 6 places where sites drift apart, and how to keep them on one process</h1>
+      <p class="meta">Vaibhav Singh, founder · 12 November 2026 · 6 min read</p>
+      <p class="lede">A second or third lab site brings more capacity and closer clients. It also brings a quieter problem: each site slowly develops its own way of working. Registers look different, tests are named differently, and the accreditation mark ends up wherever the local template puts it. Here are six places where multi-site labs drift apart, and how LabTessa keeps every site on the same process.</p>
+    </header>
+
+    <h2><span class="num">1</span>Each site has its own test list</h2>
+    <p>The central lab calls it "Aflatoxin B1, LC-MS/MS". A branch calls it "Aflatoxin (B1)" and charges a different price. Clients who send samples to two sites get two kinds of report, and nobody can compare work between sites.</p>
+    <div class="pair">
+      <div class="card now"><b>Today</b>Every site keeps its own spreadsheet of tests, methods and prices.</div>
+      <div class="card fix"><b>With LabTessa</b>We load your catalogue into every site during setup, so all sites start from the same tests, methods and units. Requests are matched only to tests in that catalogue.</div>
+    </div>
+
+    <h2><span class="num">2</span>Sample numbers that clash between sites</h2>
+    <p>When two sites both number their samples from 001, a report, a retest or a complaint can be traced to the wrong sample. It usually comes to light at the worst possible moment, during an audit or a client dispute.</p>
+    <div class="pair">
+      <div class="card now"><b>Today</b>Each site runs its own register and its own numbering.</div>
+      <div class="card fix"><b>With LabTessa</b>Each site is its own lab in LabTessa, with a short site code built into every sample code. A sample from one site can never be mistaken for one from another.</div>
+    </div>
+
+    <h2><span class="num">3</span>One report template, different accreditation scopes</h2>
+    <p>Sites are usually accredited separately, and their scopes differ. A test that is in scope at the central lab may not be at a branch. If every site uses the same report template, the NABL or ISO/IEC 17025 mark ends up on tests it shouldn't cover.</p>
+    <div class="pair">
+      <div class="card now"><b>Today</b>The same template and the same mark, whichever site did the test.</div>
+      <div class="card fix"><b>With LabTessa</b>Scope is recorded for each site, by test and matrix. A report marks only the tests that are inside that site's own scope.</div>
+    </div>
+
+    <h2><span class="num">4</span>Limits and calculations copied from site to site</h2>
+    <p>Limits and formulas travel between sites as printouts and spreadsheet copies. When a regulation changes, one site updates and another doesn't, and two labs in the same group judge the same result differently.</p>
+    <div class="pair">
+      <div class="card now"><b>Today</b>Each site keeps its own copy, updated whenever someone remembers.</div>
+      <div class="card fix"><b>With LabTessa</b>Each limit is stored with its source, so every report shows what a result was checked against. Calculated tests use the formula and factors entered once, and work the same way every time.</div>
+    </div>
+
+    <h2><span class="num">5</span>Review discipline that depends on the site</h2>
+    <p>At a busy branch with a small team, the analyst who enters a result often releases the report too. Your central quality team has no easy way to see whether review really happened.</p>
+    <div class="pair">
+      <div class="card now"><b>Today</b>Each site follows its own habits, and paper signatures are the only evidence.</div>
+      <div class="card fix"><b>With LabTessa</b>Second-person approval works the same at every site: whoever entered a result can't approve it. Results are write-once, a corrected report says which one it replaces, and every step is recorded with who did it and when.</div>
+    </div>
+
+    <h2><span class="num">6</span>Staff who work across sites</h2>
+    <p>Quality heads, technical managers and relief analysts move between sites. With separate systems, they end up with separate logins, separate files and no clean line between one site's data and another's.</p>
+    <div class="pair">
+      <div class="card now"><b>Today</b>A separate login or spreadsheet for each site, and data mixed in shared folders.</div>
+      <div class="card fix"><b>With LabTessa</b>One person can be a member of several sites, with a role at each, and chooses which site to work in. Each site's samples, clients and reports stay separate, enforced in the database itself, not just by the screens.</div>
+    </div>
+
+    <div class="note">
+      <strong>Also at every site:</strong> optional AI intake that drafts samples and tests from a client's email or PDF (off until a lab admin turns it on), QR-verified reports and COAs that show whether a report is genuine without revealing client data, nightly encrypted backups, and data hosted in India. Your accreditation body assesses each lab, not the software, but these features are designed to make every site's assessment simpler.
+    </div>
+
+    <div class="cta">
+      <h2>Bring every site onto one process</h2>
+      <p>Our Enterprise plan for multi-lab groups covers all your sites, from ₹50,000 a month on a 12-month contract. To try it first, run a 30-day paid pilot at one of your labs for ₹15,000, adjusted against your first month if you go ahead. We set up your catalogue and scope for the pilot.</p>
+      <a class="btn" href="/#pilot">Talk to us about a pilot</a>
+    </div>
+
+    <p class="meta">Running several labs and want to compare notes? Email <a href="mailto:hello@labtessa.com">hello@labtessa.com</a>. We read every message.</p>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <span>© 2026 LabTessa</span>
+      <address style="font-style: normal;">Professor Colony, Budaun 243601, India</address>
+      <span><a href="mailto:hello@labtessa.com">hello@labtessa.com</a></span>
+    </div>
+  </footer>
+</body>
+</html>
