@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LabTessa demo for Choksi Laboratories</title>
+<meta name="description" content="A walk-through of LabTessa on a paneer and packaged drinking water request, prepared for Choksi Laboratories. Sample data.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#1d4ed8">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231d4ed8'/%3E%3Cpath d='M11 7h10v3h-2v5.5l6 9.5a2 2 0 0 1-1.7 3H8.7A2 2 0 0 1 7 25l6-9.5V10h-2z' fill='white'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f6f8fb; --surface: #ffffff; --surface-2: #eef2f8; --text: #0b1324; --muted: #526077;
+    --line: #dbe2ec; --accent: #1d4ed8; --accent-soft: #e0ecff; --on-accent: #ffffff;
+    --bad: #b42318; --bad-soft: #fdecea; --ok: #15803d; --ok-soft: #dcfce7;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0a0f1a; --surface: #111827; --surface-2: #162033; --text: #e6edf7; --muted: #94a3b8;
+      --line: #243047; --accent: #60a5fa; --accent-soft: #102a4c; --on-accent: #04122b;
+      --bad: #f87171; --bad-soft: #3a1414; --ok: #4ade80; --ok-soft: #0f2e1b;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0a0f1a; --surface: #111827; --surface-2: #162033; --text: #e6edf7; --muted: #94a3b8;
+    --line: #243047; --accent: #60a5fa; --accent-soft: #102a4c; --on-accent: #04122b;
+    --bad: #f87171; --bad-soft: #3a1414; --ok: #4ade80; --ok-soft: #0f2e1b;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text);
+    font: 17px/1.7 Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  a { color: var(--accent); }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 0 16px; }
+  nav { position: sticky; top: 0; z-index: 10; background: color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+  nav .wrap { max-width: 1120px; display: flex; align-items: center; justify-content: space-between; height: 60px; gap: 16px; }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 19px; letter-spacing: -0.02em; text-decoration: none; color: var(--text); }
+  .brand svg { width: 28px; height: 28px; }
+  .navr { display: flex; align-items: center; gap: 18px; font-size: 15px; }
+  .navr a.plain { color: var(--muted); text-decoration: none; }
+  .btn { display: inline-flex; align-items: center; background: var(--accent); color: var(--on-accent); text-decoration: none;
+    padding: 10px 16px; border-radius: 10px; font-weight: 600; font-size: 15px; white-space: nowrap; }
+  header { padding: 56px 0 24px; }
+  .eyebrow { color: var(--accent); font-weight: 700; font-size: 14px; letter-spacing: .04em; text-transform: uppercase; }
+  h1 { font-size: clamp(30px, 5vw, 44px); line-height: 1.15; letter-spacing: -0.03em; margin: 10px 0 14px; }
+  .meta { color: var(--muted); font-size: 15px; }
+  .lede { font-size: 19px; color: var(--muted); }
+  h2 { font-size: 24px; line-height: 1.3; letter-spacing: -0.02em; margin: 44px 0 12px; }
+  .num { display: inline-grid; place-items: center; width: 34px; height: 34px; border-radius: 10px; background: var(--accent-soft);
+    color: var(--accent); font-size: 16px; font-weight: 800; margin-right: 10px; vertical-align: 3px; }
+  .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 14px 0 6px; }
+  @media (max-width: 640px) { .pair { grid-template-columns: 1fr; } }
+  .card { border-radius: 14px; padding: 14px 16px; font-size: 16px; line-height: 1.6; }
+  .card b { display: block; font-size: 13px; letter-spacing: .04em; text-transform: uppercase; margin-bottom: 4px; }
+  .now { background: var(--bad-soft); }
+  .now b { color: var(--bad); }
+  .fix { background: var(--ok-soft); }
+  .fix b { color: var(--ok); }
+  .note { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 18px 20px; margin: 36px 0; }
+  .cta { background: var(--accent); color: var(--on-accent); border-radius: 18px; padding: 28px 24px; margin: 48px 0 24px; }
+  .cta h2 { margin: 0 0 8px; color: var(--on-accent); }
+  .cta p { margin: 0 0 18px; opacity: .92; }
+  .cta a.btn { background: var(--on-accent); color: var(--accent); }
+  footer { padding: 32px 0 44px; color: var(--muted); font-size: 14px; border-top: 1px solid var(--line); margin-top: 40px; }
+  footer .wrap { max-width: 1120px; display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+  footer a { color: inherit; }
+
+  figure { margin: 18px 0 8px; }
+  figure img { display: block; width: 100%; height: auto; border: 1px solid var(--line); border-radius: 12px; background: #fff; }
+  figcaption { color: var(--muted); font-size: 14px; margin-top: 8px; line-height: 1.5; }
+  .mail { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px; font-size: 15px; line-height: 1.6; white-space: pre-wrap; margin: 14px 0; }
+  .mail .h { color: var(--muted); font-size: 13px; display: block; margin-bottom: 8px; }
+  ul.points { padding-left: 20px; } ul.points li { margin: 6px 0; }
+  .report { max-width: 560px; }
+</style>
+</head>
+<body>
+  <nav>
+    <div class="wrap">
+      <a class="brand" href="/">
+        <svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="7" fill="#1d4ed8"/><path d="M11 7h10v3h-2v5.5l6 9.5a2 2 0 0 1-1.7 3H8.7A2 2 0 0 1 7 25l6-9.5V10h-2z" fill="#fff"/></svg>
+        LabTessa
+      </a>
+      <div class="navr">
+        <a class="plain" href="/blog/">Blog</a>
+        <a class="btn" href="/#pilot">Join the pilot</a>
+      </div>
+    </div>
+  </nav>
+
+    <main class="wrap">
+    <header>
+      <div class="eyebrow">Prepared for Choksi Laboratories</div>
+      <h1>One paneer and water request, from the client's email to a verified report</h1>
+      <p class="lede">We set up a demo lab group with two sites, a central lab in Indore and a branch in Vadodara, loaded a few paneer and packaged drinking water tests, and ran one client request through LabTessa from start to finish. These are the screens your team would use. All lab names, clients and results here are sample data.</p>
+    </header>
+
+    <h2><span class="num">1</span>Each site is its own lab, under one login</h2>
+    <p>Staff who work at more than one site sign in once and choose the site they are working in. Each site keeps its own samples, clients, accredited scope and reports, and its site code goes into every sample code, so a sample from Indore (IDR) can never be mixed up with one from Vadodara (VAD).</p>
+    <figure><a href="/demo/img/choksi-01_sites.jpg"><img src="/demo/img/choksi-01_sites.jpg" width="1600" height="338" alt="LabTessa screen to choose a lab: Demo Central Lab, Indore and Demo Branch Lab, Vadodara" loading="lazy"></a></figure>
+
+    <h2><span class="num">2</span>The client's request arrives by email</h2>
+    <p>A typical request from a food and beverage client:</p>
+    <div class="mail"><span class="h">From: Neha Jain, QA Manager, Narmada Foods &amp; Beverages (sample client)</span>Dear team,
+
+We have dispatched two samples today from our Dewas plant:
+1) Malai paneer, batch MP-1142, one 1 kg pack. Please test moisture and milk fat on dry matter as per FSSAI.
+2) Packaged drinking water, batch PW-0915, one carton of 1 L bottles. Please test pH, TDS, nitrate and lead.
+
+Kindly share the NABL report by Monday.</div>
+    <p>Instead of typing it in, the receptionist pastes the email, or attaches the PDF or .eml, and ticks <b>Propose samples from the documents</b>.</p>
+    <figure><a href="/demo/img/choksi-02_paste_email.jpg"><img src="/demo/img/choksi-02_paste_email.jpg" width="1600" height="858" alt="Register a request form with the client, reference and pasted email, and Propose samples ticked" loading="lazy"></a></figure>
+
+    <h2><span class="num">3</span>LabTessa drafts the samples, and a person confirms them</h2>
+    <p>A few seconds later both samples are drafted, matched to the Indore site's own test list: the matrix, batch number, quantity and tests. Every field shows the client's exact words it came from, highlighted. Nothing is registered until the receptionist checks it and clicks confirm.</p>
+    <figure><a href="/demo/img/choksi-03_ai_draft-a.jpg"><img src="/demo/img/choksi-03_ai_draft-a.jpg" width="1600" height="1081" alt="Proposed sample 1, malai paneer, with each field next to the highlighted words from the email" loading="lazy"></a>
+      <figcaption>Sample 1: paneer, with moisture and milk fat on dry matter matched to the site's catalogue.</figcaption></figure>
+    <p>The client also asked for lead in water. In this demo, lead in water is not in the Indore site's accredited scope, so LabTessa flags it and leaves it unticked. Your team decides whether to accept it as a non-accredited test or send it to the site that holds that scope.</p>
+    <figure><a href="/demo/img/choksi-03_ai_draft-b.jpg"><img src="/demo/img/choksi-03_ai_draft-b.jpg" width="1600" height="578" alt="Proposed tests for the water sample: pH, TDS and nitrate ticked, lead flagged as outside the accreditation scope" loading="lazy"></a>
+      <figcaption>Sample 2: pH, TDS and nitrate proposed; lead flagged as outside this site's scope.</figcaption></figure>
+
+    <h2><span class="num">4</span>Results are checked against your limits at once</h2>
+    <p>When the samples arrive, receipt is recorded and each one gets its site-coded lab number (IDR-2026-000001, IDR-2026-000002). The analyst enters results, and each result is judged straight away against the limit your lab entered, with its source shown. Every result then waits for approval by a second person: whoever entered a result can't approve it.</p>
+    <figure><a href="/demo/img/choksi-05_results.jpg"><img src="/demo/img/choksi-05_results.jpg" width="1600" height="975" alt="Results screen showing each test, its limit and source, the result and Conforms, waiting for approval" loading="lazy"></a></figure>
+
+    <h2><span class="num">5</span>The test report, ready to sign</h2>
+    <p>After approval, the reviewer issues the report with an authorised signatory. It shows the method, result, limit and source for every test, and carries a QR code. Once issued, the PDF can't be changed; a correction becomes a revised report that says which one it replaces.</p>
+    <figure class="report"><a href="/demo/img/choksi-08_report.jpg"><img src="/demo/img/choksi-08_report.jpg" width="1202" height="1400" alt="PDF test report for the paneer and drinking water samples with a QR code" loading="lazy"></a>
+      <figcaption>The demo report. In a live lab, the QR code points to your own verification page.</figcaption></figure>
+
+    <h2><span class="num">6</span>Anyone can check that a report is genuine</h2>
+    <p>A client, a buyer or a regulator who scans the QR code sees whether the report was issued by your lab and is the current version. They don't see the client's name or the results, so the code is safe to print on packaging or share with buyers.</p>
+    <figure><a href="/demo/img/choksi-09_verify.jpg"><img src="/demo/img/choksi-09_verify.jpg" width="1450" height="1060" alt="Public verification page saying the report was issued by this laboratory and is the current version" loading="lazy"></a></figure>
+
+    <div class="note">
+      <strong>How this would look for Choksi:</strong>
+      <ul class="points">
+        <li>Each of your labs (Indore, Vadodara, Vapi, Goa and Panchkula) gets its own site in LabTessa, with its own code, users and NABL scope.</li>
+        <li>We load your test catalogue and scope for each site during setup, so requests are matched only to tests that site actually offers.</li>
+        <li>AI intake is optional. It stays off until your lab admin switches it on, and a person always confirms each sample.</li>
+        <li>Every step is recorded with who did it and when. Data is hosted in India, with nightly encrypted backups.</li>
+      </ul>
+    </div>
+
+    <div class="cta">
+      <h2>See it on your own samples</h2>
+      <p>We can run this demo again on a request your lab has already handled, in a 30-minute call. To try it in daily work, we offer a 30-day paid pilot at one of your labs for ₹15,000, adjusted against the first month if you go ahead. The Enterprise plan for all your sites starts at ₹50,000 a month on a 12-month contract.</p>
+      <a class="btn" href="mailto:vaibhavsingh@labtessa.com?subject=LabTessa%20demo%20for%20Choksi%20Laboratories">Book a 30-minute call</a>
+    </div>
+
+    <p class="meta">Vaibhav Singh, founder, LabTessa · <a href="mailto:vaibhavsingh@labtessa.com">vaibhavsingh@labtessa.com</a></p>
+  </main>
+
+
+  <footer>
+    <div class="wrap">
+      <span>© 2026 LabTessa</span>
+      <address style="font-style: normal;">Professor Colony, Budaun 243601, India</address>
+      <span><a href="mailto:hello@labtessa.com">hello@labtessa.com</a></span>
+    </div>
+  </footer>
+</body>
+</html>
